@@ -3,10 +3,14 @@ from dotenv import load_dotenv
 from langchain_mistralai import ChatMistralAI
 from langchain_tavily import TavilySearch
 from langchain_core.prompts import ChatPromptTemplate
-
+import os 
 # Load environment variables (.env file with TAVILY_API_KEY and MISTRAL_API_KEY)
 load_dotenv()
-
+# Inject Streamlit Cloud Secrets into System Environment Variables
+if "TAVILY_API_KEY" in st.secrets:
+    os.environ["TAVILY_API_KEY"] = st.secrets["TAVILY_API_KEY"]
+if "MISTRAL_API_KEY" in st.secrets:
+    os.environ["MISTRAL_API_KEY"] = st.secrets["MISTRAL_API_KEY"]
 # Set up page configuration
 st.set_page_config(page_title="Search Agent", page_icon="🔍")
 
